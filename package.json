@@ -1,0 +1,35 @@
+{
+    "name": "vite-plugin-micro",
+    "version": "0.0.1",
+    "description": "",
+    "keywords": [
+      "vite",
+      "micro",
+      "importmaps"
+    ],
+    "license": "ISC",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/yzydeveloper/vite-plugin-micro.git"
+    },
+    "author": "yzydeveloper",
+    "main": "dist/index.js",
+    "module": "dist/index.mjs",
+    "types": "dist/index.d.ts",
+    "scripts": {
+      "build": "tsup",
+      "dev": "tsup --watch"
+    },
+    "bugs": {
+      "url": "https://github.com/yzydeveloper/vite-plugin-micro/issues"
+    },
+    "homepage": "https://github.com/yzydeveloper/vite-plugin-micro",
+    "devDependencies": {
+      "@types/node":"^18.15.0",
+      "@yzydeveloper/eslint-config": "^0.1.5",
+      "tsup": "^6.6.0",
+      "typescript": "^4.9.5",
+      "vite": "^4.5.0"
+    }
+  }
+  

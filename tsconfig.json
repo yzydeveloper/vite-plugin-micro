@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "module": "esnext",
+        "target": "esnext",
+        "strict": true,
+        "esModuleInterop": true,
+        "incremental": false,
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "noUnusedLocals": true
+    },
+    "exclude": [
+        "examples",
+        "dist",
+        "node_modules"
+    ]
+}

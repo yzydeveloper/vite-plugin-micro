@@ -1,7 +1,7 @@
 {
     "name": "vite-plugin-micro",
     "version": "0.0.1",
-    "description": "",
+    "description": "The implementation of a micro-frontend based on ESM.",
     "keywords": [
       "vite",
       "micro",
@@ -32,4 +32,3 @@
       "vite": "^4.5.0"
     }
   }
-  

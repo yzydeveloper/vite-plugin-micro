@@ -18,6 +18,23 @@ TODO
 - [x] Build environment support
 - [ ] ...
 
+```bash
+# micro-sub-app
+cd examples/micro-sub-app
+npm run build
+npm run serve
+
+# micro-shared
+cd examples/micro-shared
+npm run build
+npm run serve
+
+# micro-app
+cd examples/micro-app
+npm run build
+npm run serve
+```
+
 ## Usage
 
 [Local examples](./examples)

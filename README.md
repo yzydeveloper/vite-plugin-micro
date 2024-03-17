@@ -14,7 +14,7 @@ npm install vite-plugin-micro -D
 
 TODO
 
-- [] Server environment support
+- [ ] Server environment support
 - [x] Build environment support
 - [ ] ...
 

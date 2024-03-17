@@ -9,15 +9,15 @@ export default defineConfig(() => ({
     splitting: true,
     clean: true,
     dts: true,
-    esbuildPlugins: [{
-        name: 'esbuild-cpoy',
-        setup(build) {
-            build.onEnd(() => {
+    plugins: [
+        {
+            name: 'tsup-copy',
+            buildEnd() {
                 fs.copyFileSync(
                     path.resolve(__dirname, './src/_loader.js'),
                     path.resolve(__dirname, './dist/_loader.js')
                 )
-            })
+            }
         }
-    }]
+    ]
 }))

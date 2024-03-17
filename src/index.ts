@@ -6,6 +6,7 @@ const __loadMetadata = fs.readFileSync(path.resolve(__dirname, './_loader.js'), 
 
 const VITE_PLUGIN_NAME = 'vite-plugin-micro'
 const REMOTE_ENTRY_FILENAME = 'remote-entry.js'
+const METADATA_FILENAME = 'metadata.json'
 
 type Remotes = Record<string, string> | string[]
 
@@ -150,7 +151,7 @@ export function PluginMicroBuild(options: Options): PluginOption {
             })
 
             this.emitFile({
-                fileName: 'metadata.json',
+                fileName: METADATA_FILENAME,
                 type: 'asset',
                 source: JSON.stringify(metadata, undefined, 2),
             })

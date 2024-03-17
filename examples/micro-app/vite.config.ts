@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import vue from '@vitejs/plugin-vue'
 import micro from 'vite-plugin-micro'
 
 export default defineConfig(()=>{
@@ -9,8 +10,19 @@ export default defineConfig(()=>{
         preview: {
             port: 8888
         },
+        build: {
+            rollupOptions: {
+                external: ['vue', /@micro.*/]
+            }
+        },
         plugins: [
-            micro()
+            vue(),
+            micro({
+                remotes: {
+                    '@micro/sub-app': 'http://localhost:5174/',
+                    '@micro/shared': 'http://localhost:5175/'
+                }
+            })
         ]
     }
 })

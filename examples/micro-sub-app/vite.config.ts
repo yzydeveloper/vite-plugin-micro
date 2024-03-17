@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import vue from '@vitejs/plugin-vue'
 import micro from 'vite-plugin-micro'
 
 export default defineConfig(()=>{
@@ -10,7 +11,10 @@ export default defineConfig(()=>{
             port: 5174
         },
         plugins: [
-            micro()
+            vue(),
+            micro({
+                entry: './src/index.ts'
+            })
         ]
     }
 })

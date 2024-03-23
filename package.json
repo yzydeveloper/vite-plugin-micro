@@ -1,35 +1,38 @@
 {
-    "name": "vite-plugin-micro",
-    "version": "0.0.1",
-    "description": "The implementation of a micro-frontend based on ESM.",
-    "keywords": [
-      "vite",
-      "micro",
-      "importmaps"
-    ],
-    "license": "ISC",
-    "repository": {
-      "type": "git",
-      "url": "git+https://github.com/yzydeveloper/vite-plugin-micro.git"
-    },
-    "author": "yzydeveloper",
-    "main": "dist/index.js",
-    "module": "dist/index.mjs",
-    "types": "dist/index.d.ts",
-    "scripts": {
-      "build": "tsup",
-      "dev": "tsup --watch"
-    },
-    "bugs": {
-      "url": "https://github.com/yzydeveloper/vite-plugin-micro/issues"
-    },
-    "homepage": "https://github.com/yzydeveloper/vite-plugin-micro",
-    "devDependencies": {
-      "@types/node":"^18.15.0",
-      "@yzydeveloper/eslint-config": "^0.1.5",
-      "picocolors": "^1.0.0",
-      "tsup": "^6.6.0",
-      "typescript": "^4.9.5",
-      "vite": "^4.5.0"
-    }
+  "name": "vite-plugin-micro",
+  "version": "0.1.0",
+  "description": "The implementation of a micro-frontend based on ESM.",
+  "keywords": [
+    "vite",
+    "micro",
+    "importmaps"
+  ],
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yzydeveloper/vite-plugin-micro.git"
+  },
+  "author": "yzydeveloper",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "prepublishOnly": "npm run build",
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "release": "bumpp && npm publish"
+  },
+  "bugs": {
+    "url": "https://github.com/yzydeveloper/vite-plugin-micro/issues"
+  },
+  "homepage": "https://github.com/yzydeveloper/vite-plugin-micro",
+  "devDependencies": {
+    "@types/node": "^18.15.0",
+    "@yzydeveloper/eslint-config": "^0.1.5",
+    "bumpp": "^9.1.0",
+    "picocolors": "^1.0.0",
+    "tsup": "^6.6.0",
+    "typescript": "^4.9.5",
+    "vite": "^4.5.0"
   }
+}

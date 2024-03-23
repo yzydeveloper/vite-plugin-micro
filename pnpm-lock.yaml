@@ -14,6 +14,9 @@ importers:
       '@yzydeveloper/eslint-config':
         specifier: ^0.1.5
         version: 0.1.5(eslint@7.32.0)(typescript@4.9.5)
+      picocolors:
+        specifier: ^1.0.0
+        version: 1.0.0
       tsup:
         specifier: ^6.6.0
         version: 6.7.0(typescript@4.9.5)

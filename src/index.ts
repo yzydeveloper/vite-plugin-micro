@@ -1,6 +1,7 @@
 import path from 'node:path'
 import fs from 'node:fs'
-import { normalizePath, type ResolvedConfig, type PluginOption, type HtmlTagDescriptor } from 'vite'
+import { normalizePath, createLogger, type ResolvedConfig, type PluginOption, type HtmlTagDescriptor, type AliasOptions } from 'vite'
+import colors from 'picocolors'
 
 const __loadMetadata = fs.readFileSync(path.resolve(__dirname, './_loader.js'), 'utf-8')
 
@@ -25,9 +26,74 @@ interface Options {
 }
 
 export function PluginMicroServe(options: Options): PluginOption {
+    let config: ResolvedConfig
+    let packageJson: any
+    const metadata: Metadata = {}
+
     return {
         name: `${VITE_PLUGIN_NAME}-serve`,
-        apply: 'serve'
+        apply: 'serve',
+        async config() {
+            if(!options.remotes) return
+
+            const logger = createLogger()
+            const promises: Promise<AliasOptions>[] = []
+
+            for (const [remoteName, remote] of Object.entries(options.remotes)) {
+                const remoteUrl = remote.endsWith('/') ? remote : `${remote}/`
+                const metadataUrl = `${remoteUrl}_metadata.json`
+                promises.push(
+                    fetch(metadataUrl)
+                        .then(res => res.json())
+                        .catch(() => {
+                            logger.error(
+                                colors.red(`Error when fetching metadata for remote '${remoteName}' at URL ${metadataUrl}`)
+                            )
+                        })
+                )
+            }
+            const alias = await Promise.all(promises)
+
+            return {
+                resolve: {
+                    alias: Object.assign({}, ...alias)
+                }
+            }
+        },
+        configResolved(_config) {
+            config = _config
+            packageJson = JSON.parse(
+                fs.readFileSync(path.resolve(config.root, 'package.json'), 'utf-8')
+            )
+        },
+        configureServer(server) {
+            server.middlewares.use('/_metadata.json', (_, res) => {
+                res.setHeader('Content-Type', 'application/json')
+                res.end(JSON.stringify(metadata, null, 2))
+            })
+        },
+        async buildStart() {
+            // Iterating over options.exposes and adding them to the metadata mapping, these are modules to be exposed.
+            for (const [exposeName, exposeValue] of Object.entries(options.exposes || {})) {
+                const moduleName = `${options.name ?? packageJson.name}/${exposeName}`
+                metadata[moduleName] = path.resolve(config.root, exposeValue)
+            }
+
+            // Resolving each item in the options.shared array, adding results to metadata.
+            await Promise.all(
+                options.shared?.map(sharedItem =>
+                    this.resolve(sharedItem).then(resolved => {
+                        if(resolved) {
+                            metadata[sharedItem] = resolved.id
+                        }
+                    })) || []
+            )
+
+            // If options.entry is specified, resolve and add it to metadata.
+            if(options.entry) {
+                metadata[packageJson.name] = path.resolve(config.root, options.entry)
+            }
+        },
     }
 }
 

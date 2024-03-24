@@ -34,7 +34,8 @@ export function PluginMicroServe(options: Options): PluginOption {
         name: `${VITE_PLUGIN_NAME}-serve`,
         apply: 'serve',
         async config() {
-            if(!options.remotes) return
+            // https://github.com/vitejs/vite/pull/14855
+            if(!options.remotes || process.argv[2] === 'preview') return
 
             const logger = createLogger()
             const promises: Promise<AliasOptions>[] = []

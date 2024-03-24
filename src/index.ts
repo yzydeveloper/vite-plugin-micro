@@ -107,8 +107,16 @@ export function PluginMicroBuild(options: Options): PluginOption {
         name: `${VITE_PLUGIN_NAME}-build`,
         apply: 'build',
         config() {
+            // remote.key === package.name ??? remote.key as external ??? But how to process shared ???
+            const external = Object.keys(options.remotes || {}).map(remoteName => new RegExp(`^${remoteName}/?.*$`))
+
             return {
-                base: './' // [https://vitejs.dev/config/shared-options.html#base](Empty string or ./ (for embedded deployment))
+                base: './', // [https://vitejs.dev/config/shared-options.html#base](Empty string or ./ (for embedded deployment))
+                build: {
+                    rollupOptions: {
+                        external
+                    }
+                }
             }
         },
         configResolved(_config) {

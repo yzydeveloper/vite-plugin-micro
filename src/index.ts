@@ -106,6 +106,11 @@ export function PluginMicroBuild(options: Options): PluginOption {
     return {
         name: `${VITE_PLUGIN_NAME}-build`,
         apply: 'build',
+        config() {
+            return {
+                base: './' // [https://vitejs.dev/config/shared-options.html#base](Empty string or ./ (for embedded deployment))
+            }
+        },
         configResolved(_config) {
             config = _config
             packageJson = JSON.parse(

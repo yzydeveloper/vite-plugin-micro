@@ -1,8 +1,10 @@
-import { defineConfig } from "vite";
+import { defineConfig,loadEnv } from "vite";
 import vue from '@vitejs/plugin-vue'
 import micro from 'vite-plugin-micro'
 
-export default defineConfig(()=>{
+export default defineConfig(({mode})=>{
+    const env = loadEnv(mode, process.cwd(), '')
+    
     return {
         server: {
             port: 8888
@@ -19,8 +21,8 @@ export default defineConfig(()=>{
             vue(),
             micro({
                 remotes: {
-                    '@micro/sub-app': 'http://localhost:5174/',
-                    '@micro/shared': 'http://localhost:5175/'
+                    '@micro/sub-app': env.MICRO_SUB_APP_URL,
+                    '@micro/shared': env.MICRO_SHARED_URL
                 }
             })
         ]

@@ -105,16 +105,6 @@ export function PluginMicroBuild(options: Options): PluginOption {
     return {
         name: `${VITE_PLUGIN_NAME}-build`,
         apply: 'build',
-        config() {
-            return{
-                build: {
-                    rollupOptions: {
-                        preserveEntrySignatures: 'strict'
-                    },
-                    // cssCodeSplit: false
-                }
-            }
-        },
         configResolved(_config) {
             config = _config
             packageJson = JSON.parse(
